@@ -6,8 +6,8 @@
   "minimum-stability": "dev",
   "repositories": [
     {
-      "type": "zip",
-      "url": "git@github.com:manalyse/eventon/eventon-master.zip"
+      "type": "vcs",
+      "url": "git@github.com:manalyse/eventon.git"
     }
   ],
   "require": {
