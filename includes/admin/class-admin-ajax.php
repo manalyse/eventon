@@ -22,6 +22,7 @@ class EVO_admin_ajax{
 			'admin_get_views'		=>'admin_get_views',
 			'activate_subscription'		=>'activate_subscription',
 			'deactivate_subscription'	=>'deactivate_subscription',
+			'svg_form'	=>'svg_form',
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {
 
@@ -32,6 +33,42 @@ class EVO_admin_ajax{
 
 		add_action('wp_ajax_eventon-feature-event', array($this, 'eventon_feature_event'));
 	}
+
+
+	// SVG icons
+		// form
+			function svg_form(){
+				$type = $_POST['type'];
+				$output = '';
+
+				$SVG = new EVO_Svgs();
+				switch($type){
+					case 'form':
+						$output = $SVG->get_form();
+					break;
+					case 'n':
+						$SVG->new($_POST['title'], $_POST['code']);
+						$output = $this->__return_svgs_views( $SVG->get_all() );
+					break;
+					case 'd':
+						$SVG->delete($_POST['slug']);
+						
+						$output = $this->__return_svgs_views( $SVG->get_all() );
+					break;
+				}
+
+				echo json_encode(array(
+					'h'=>$output, 'status'=>'good'
+				));exit;
+
+			}
+			private function __return_svgs_views($svgs){
+				$output = '';
+				foreach($svgs as $s=>$c){
+					$output .= "<span data-s='{$s}'>". $c . "</span>";
+				}
+				return $output;
+			}
 
 	// get HTML views
 		function admin_get_views(){

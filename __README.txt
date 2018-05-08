@@ -4,8 +4,8 @@ Plugin Name: EventON
 Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, event posts
 Requires at least: 4.0
-Tested up to: 4.9.4
-Stable tag: 2.6.8
+Tested up to: 4.9.5
+Stable tag: 2.6.9
 Initial Release: 2011-12-21
 
 Event calendar plugin for wordpress that utilizes WP's custom post type.  
@@ -20,6 +20,17 @@ Event calendar plugin for wordpress that utilizes WP's custom post type. This pl
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 2.6.9 (2018-5-7) = 
+ADDED: New SVG class object
+ADDED: new forms object to handle all eventon forms
+ADDED: MDT sanitize fields
+ADDED: Support for event tag filtering
+FIXED: All day events showing end date info
+FIXED: activation lightbox tooltips not showing up
+FIXED: input field psuedo colors bleeding into other areas
+FIXED: Custom map styles not reflecting on location archive page
+FIXED: Future event times in the repeating event series from event card not working correct
+
 = 2.6.8 (2018-4-6) =
 ADDED: new template class
 ADDED: js handlebars library

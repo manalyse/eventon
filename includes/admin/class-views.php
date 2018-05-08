@@ -24,11 +24,11 @@ class EVO_Views{
 					</p>
 
 					<p style='padding-top:10px;'>
-						<label><?php _e('Envato Username','eventon'); $ajde->wp_admin->echo_tooltips('This is the envato account username used for loggin into to codecanyon.');?></label>
+						<label class='pea'><?php _e('Envato Username','eventon'); $ajde->wp_admin->echo_tooltips('This is the envato account username used for loggin into to codecanyon.');?></label>
 						<input class='fields' name='envato_username' type='text' style='<?php echo $style_input;?>'/>
 					</p>
 					<p style='padding-top:10px;'>
-						<label><?php _e('Envato API Key','eventon'); $ajde->wp_admin->echo_tooltips('Login to your envato account go to Settings > API Keys and generate an API Key. Copy & paste API Key. API key is used to verify your copy of eventon and to download auto updates.'); ?></label>
+						<label class='pea'><?php _e('Envato API Key','eventon'); $ajde->wp_admin->echo_tooltips('Login to your envato account go to Settings > API Keys and generate an API Key. Copy & paste API Key. API key is used to verify your copy of eventon and to download auto updates.'); ?></label>
 						<input class='fields' name='envato_api_key' type='text' style='<?php echo $style_input;?>'/>
 					</p>
 					<p style='text-align:center'><a class='eventon_submit_license evo_admin_btn btn_prime' data-type='main' data-slug='eventon'><?php _e('Activate Now','eventon');?></a></p>
@@ -52,7 +52,7 @@ class EVO_Views{
 					</p>
 
 					<p>
-						<label><?php _e('Email Address','eventon');?>* <?php $ajde->wp_admin->echo_tooltips('The email address you have used to purchase eventon addon from myeventon.com.');?></label>
+						<label class='pea'><?php _e('Email Address','eventon');?>* <?php $ajde->wp_admin->echo_tooltips('The email address you have used to purchase eventon addon from myeventon.com.');?></label>
 						<input class='eventon_email_val fields' name='email' type='text' style='width:100%' placeholder='Email address used for purchasing addon'/>
 					</p>
 							
@@ -99,7 +99,7 @@ class EVO_Views{
 					<p class='action'>
 						<a id='evo_license_form_trig' class='ajde_popup_trig evo_admin_btn btn_prime' data-dynamic_c='1' data-content_id='eventon_pop_content_001' poptitle='Activate EventON License'><?php _e('Activate Now','eventon');?></a>
 					</p>
-					<p class='activation_text'><i><a href='http://www.myeventon.com/documentation/how-to-find-eventon-license-key/' target='_blank'>How to find activation key</a><?php $ajde->wp_admin->echo_tooltips('EventON license you have purchased from Codecanyon, either regular or extended will allow you to install eventON in ONE site only. In order to install eventON in another site you will need a seperate license.');?></i>
+					<p class='activation_text'><i><a href='http://www.myeventon.com/documentation/how-to-find-eventon-license-key/' target='_blank'>How to find activation key</a><?php $ajde->wp_admin->echo_tooltips('EventON license you have purchased from Codecanyon, either regular or extended will allow you to install eventON in ONE site only. In order to install eventON in another site you will need a seperate license.','L');?></i>
 					</p>
 
 					<div id='eventon_pop_content_001' class='evo_hide_this'><p class='evo_loader'></p></div>
@@ -255,7 +255,7 @@ class EVO_Views{
 					</p>
 
 					<p style='padding-top:10px;'>
-						<label><?php _e('myeventon.com Username','eventon'); $ajde->wp_admin->echo_tooltips('The username used to login to myeventon.com when you purchased the subscription.');?></label>
+						<label class='pea'><?php _e('myeventon.com Username','eventon'); $ajde->wp_admin->echo_tooltips('The username used to login to myeventon.com when you purchased the subscription.');?></label>
 						<input class='fields' name='myeventon_username' type='text' style='<?php echo $style_input;?>'/>
 					</p>
 					

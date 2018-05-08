@@ -854,9 +854,10 @@ jQuery(document).ready(function($){
 		});
 
 	// repeat events series
+	// @updated 2.6.9
 		$('body').on('click','.evo_repeat_series_date',function(){
 			if( $(this).parent().data('click') ){
-				URL = $(this).parent().data('event_url') + '?ri=' + $(this).data('repeat');
+				URL =  $(this).data('l');
 				window.location = URL;
 			}
 		});

@@ -24,7 +24,7 @@ global $ajde, $eventon;
 	<div class='evo_auto_update_subscription'>
 		<?php
 		$views = new EVO_Views();
-		echo $views->get_html('evo_subsription_view');
+		//echo $views->get_html('evo_subsription_view');
 
 		?>
 	</div>

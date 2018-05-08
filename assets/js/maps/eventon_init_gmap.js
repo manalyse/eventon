@@ -14,7 +14,13 @@ function getGeocoder(){
 function initialize(map_canvas_id, address,mapformat, zoom_level, location_type, scrollwheel, styles, iconURL) {
 	var map;
 
-	console.log(map_canvas_id);
+	// map styles
+	if(styles === undefined){
+		if( typeof gmapstyles !== 'undefined' && gmapstyles != 'default'){
+			styles = JSON.parse(gmapstyles);
+		}
+	}
+	
 	geocoder = new google.maps.Geocoder();
 			
 	var latlng = new google.maps.LatLng(45.524732, -122.677031);
@@ -86,9 +92,5 @@ function initialize(map_canvas_id, address,mapformat, zoom_level, location_type,
 				document.getElementById(map_canvas_id).style.display='none';				
 			}
 		});
-	}
-	
-	
+	}		
 }
-
-

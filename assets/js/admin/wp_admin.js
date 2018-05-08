@@ -4,6 +4,66 @@
  */
 jQuery(document).ready(function($){	
 	
+	// SVG Icons form
+		$('body').on('click','.evoadmin_add_svg_icons',function(){
+			__svg_process($(this), 'form');
+		});
+
+		// submit
+		$('body').on('click','.evo_admin_submit_svg',function(){
+			__svg_process($(this), 'n');
+		});
+
+		// delete
+		$('.evoadmin_svgs_container').on('click','span',function(){
+			__svg_process($(this), 'd');
+		});
+
+		function __svg_process(OBJ, type){
+			LB = $('.evoadmin_lightbox');
+			var ajaxdataa = { };
+
+			if(type == 'd'){
+				ajaxdataa['action']='eventon_svg_form';
+				ajaxdataa['slug']= OBJ.data('s');
+			}
+			if(type == 'n'){
+				ajaxdataa['action']='eventon_svg_form';
+				LB.find('.evo_admin_field').each(function(i){
+					ajaxdataa[ $(this).attr('name')] = $(this).val();
+				});
+			}
+			if( type=='form'){
+				ajaxdataa['action']='eventon_svg_form';
+			}
+			ajaxdataa['type']=type;
+
+			$.ajax({
+				beforeSend: function(){		LB.find('.ajde_popup_text').addClass( 'loading');	},
+				type: 'POST',
+				url:evo_admin_ajax_handle.ajaxurl,
+				data: ajaxdataa,
+				dataType:'json',
+				success:function(data){
+					if(data.status=='good'){						
+						$('body').find('.evoadmin_svgs_container').html( data.h);
+					}else{}
+				},complete:function(){
+					if(type == 'd'){}
+					if(type == 'n'){
+						setTimeout(function () {
+						   LB.find('.ajde_close_pop_btn').trigger('click');
+						}, 2000);					
+						LB.find('.ajde_popup_text').removeClass( 'loading');
+					}
+					if( type == 'form'){
+						LB.find('.ajde_popup_text').removeClass( 'loading');
+					}
+
+				}
+			});	
+		}
+
 	// Event Singular tax term form create new or edit form
 		$('body').on('click','.evo_tax_term_form',function(){
 			OBJ = $(this);

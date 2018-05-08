@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'EventON' ) ) {
 
 class EventON {
-	public $version = '2.6.8';
+	public $version = '2.6.9';
 	/**
 	 * @var evo_generator
 	 */
@@ -99,6 +99,7 @@ class EventON {
 	private function includes(){		
 
 		// post types
+		include_once( 'includes/class-svgs.php' );
 		include_once( 'includes/class-evo-addons.php' );
 		include_once('includes/admin/class-evo-products.php' );					
 		include_once('includes/admin/class-evo-product.php' );
@@ -129,6 +130,7 @@ class EventON {
 
 
 		if ( is_admin() ){	
+			include_once('includes/admin/class-forms.php' );	
 			include_once('includes/admin/settings/class-addon-details.php' );	
 			include_once('includes/class-intergration-visualcomposer.php' );
 			include_once('includes/admin/class-views.php' );

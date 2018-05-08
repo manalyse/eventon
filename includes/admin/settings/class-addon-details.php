@@ -36,7 +36,7 @@ public function get_list(){
 			'desc'=>'The list style calendar works for you but you would really like a full grid calendar? Here is the addon that will convert EventON to a full grid calendar view.'
 		),
 		'eventon-events-map'=>array(
-			'id'=>'EVOEM',
+			'id'=>'EVEM',// it is EVEM in myeventon
 			'name'=>'EventsMap',
 			'link'=>'http://www.myeventon.com/addons/events-map/',
 			'download'=>'http://www.myeventon.com/addons/events-map/',

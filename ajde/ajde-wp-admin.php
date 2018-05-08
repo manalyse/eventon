@@ -176,7 +176,7 @@ class ajde_wp_admin{
 			echo $output;
 		}
 		function echo_tooltips($content, $position=''){
-			$this->tooltips($content, $position='',true);
+			$this->tooltips($content, $position,true);
 		}
 
 	// icon selector

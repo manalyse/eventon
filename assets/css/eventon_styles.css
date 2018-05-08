@@ -811,6 +811,7 @@
 		font-size: 14px;
 		position: relative;
 	}
+	.ajde_evcal_calendar .eventon_events_list .allday .evcal_cblock .evo_end {display: none;} /* all day event hide end time*/
 	.evcal_cblock .evo_end:before{
 		background-color: #ABABAB;
 		height: 2px;

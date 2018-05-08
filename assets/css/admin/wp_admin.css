@@ -413,16 +413,16 @@
 /* event locations */
 	body.taxonomy-event_location form #the-list span.view{display:none;}
 /* evcal settings page */
-	::-webkit-input-placeholder { /* WebKit browsers */
+	#ajde_customization ::-webkit-input-placeholder { /* WebKit browsers */
 	    color:    #EED1B5;
 	}
-	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	#ajde_customization :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
 	    color:    #EED1B5;
 	}
-	::-moz-placeholder { /* Mozilla Firefox 19+ */
+	#ajde_customization ::-moz-placeholder { /* Mozilla Firefox 19+ */
 	    color:    #EED1B5;
 	}
-	:-ms-input-placeholder { /* Internet Explorer 10+ */
+	#ajde_customization :-ms-input-placeholder { /* Internet Explorer 10+ */
 	    color:    #EED1B5;
 	}
 	#meta_tabs a{cursor:pointer}
@@ -780,6 +780,41 @@
 	.evo_settings_box.adminRTL .ajde_yn_btn{right: 20px;}
 /* quick edit */
 	.wp-list-table .event_fields span.ajde_yn_btn{margin-top: 5px;}
+
+/* EVO Forms */
+	.evo_admin_form{padding: 20px;}
+	.evo_admin_form p{margin: 0;}
+	.evo_admin_form p .t{margin-bottom: 5px; display: block;}
+	.evo_admin_form p.textarea textarea{border-radius: 5px;
+		width: 100%;}
+	.evo_admin_form p.submit{padding-top: 0; margin: 0;}
+
+/* SVGS */
+	.evoadmin_svgs_container{margin-bottom: 15px;}
+	.evoadmin_svgs_container svg{height: 40px;width: 40px;cursor: pointer;}
+	.evoadmin_svgs_container span{
+		display:inline-block;position: relative;
+		background-color: #CDCDCD;
+		box-sizing:border-box; border-radius: 5px;
+		padding-right: 20px;
+	}
+	.evoadmin_svgs_container span:after{
+		    content: "X";
+	    display: block;
+	    background-color: #E0E0E0;
+	    color: #C7C7C7;
+	    position: absolute;
+	    width: 20px;
+	    text-align: center;
+	    right: 0;
+	    top: 0;
+	    height: 100%;
+	    border-radius: 0 5px 5px 0;
+	    cursor: pointer;
+	}
+	.evoadmin_svgs_container span:hover:after{
+		background-color: #3d3d3d; color:#fff;
+	}
 /* support */	
 	.evo_support_box{
 		border-radius:3px;

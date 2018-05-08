@@ -423,6 +423,7 @@ class evo_settings_lang{
 				$output[] = array('label'=>'Events at this location', 'var'=>'1');
 				$output[] = array('label'=>'Event Organizer', 'name'=>'evcal_lang_evorg');
 				$output[] = array('label'=>'Events by this organizer', 'var'=>'1');
+				$output[] = array('label'=>'Event Tag', 'var'=>'1');
 
 				// for MDT
 					for($y=1; $y <= EVO()->mdt->evo_max_mdt_count() ; $y++){

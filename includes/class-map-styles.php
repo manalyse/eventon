@@ -23,7 +23,7 @@ class evo_map_styles{
 			$evoopt['evcal_gmap_style']!='default')
 			? $evoopt['evcal_gmap_style']: false;	
 		?>
-		<script type="text/javascript">
+		<script type="text/javascript" alt='evo_map_styles'>
 		/*<![CDATA[*/
 		var gmapstyles = '<?php echo ($styleVal)?$this->style($styleVal):"default"; ?>';
 		/* ]]> */

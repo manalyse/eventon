@@ -59,6 +59,25 @@ jQuery(document).ready(function($){
 			});
 
 	// popup open
+		// 2.6.9
+		$('body').on('evo_open_admin_lightbox', function(event, lb_class){
+			ajde_open_any_lightbox(lb_class);
+		});
+
+		function ajde_open_any_lightbox(lb_class){
+			LIGHTBOX = $('.ajde_admin_lightbox.'+lb_class).eq(0);
+
+			// if already open
+			if(LIGHTBOX.is("visible")===true) return false;
+
+			POPUP = LIGHTBOX.find('.ajde_popup');
+			POPUP.find('.message').removeClass('bad good').hide();
+
+			// open lightbox
+			LIGHTBOX.addClass('show');	
+			$('body').addClass('evo_overflow');
+			$('html').addClass('evo_overflow');
+		}
 		function ajde_popup_open(obj){
 			var popc = obj.data('popc');
 

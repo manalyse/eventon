@@ -30,7 +30,7 @@ class evo_mdt{
 		add_action('eventon_save_meta', array($this, 'save_event_post'), 10, 2);
 
 		add_action( 'wp_ajax_evo_mdt', array( $this, 'evomdt_ajax' ) );
-		add_action( 'wp_ajax_nopriv_evo_mdt', array( $this, 'evomdt_ajax' ) );
+		//add_action( 'wp_ajax_nopriv_evo_mdt', array( $this, 'evomdt_ajax' ) );
 		
 		add_action( 'eventon_eventcard_boxes', array( $this, 'eventCard_inclusion' ), 10,1 );
 		add_filter( 'eventon_custom_icons',array($this, 'custom_icons') , 10, 1);
@@ -179,14 +179,17 @@ class evo_mdt{
 
 			switch($type){
 			case 'newform':
+				$event_id = (int)$_POST['eventid'];
 				echo json_encode(array(
-					'content' =>$this->mdt_form($_POST['eventid'], $_POST['tax']),
+					'content' =>$this->mdt_form($event_id, $_POST['tax']),
 					'status'=>'good'
 				)); exit;
 			break;
 			case 'editform':
+				$event_id = (int)$_POST['eventid'];
+				$term_id = (int)$_POST['termid'];
 				echo json_encode(array(
-					'content' =>$this->mdt_form($_POST['eventid'], $_POST['tax'],$_POST['termid'] ),
+					'content' =>$this->mdt_form($event_id, $_POST['tax'],$term_id),
 					'status'=>'good'
 				)); exit;
 			break;
@@ -194,7 +197,7 @@ class evo_mdt{
 				echo json_encode($this->save_mdt()); exit;
 			break;
 			case 'list':
-				$eventid = $_POST['eventid'];
+				$eventid = (int)$_POST['eventid'];
 				$tax = $_POST['tax'];
 				if(empty($eventid) && empty($tax)){
 					echo json_encode(array('status'=>'Missing required information')); exit;
@@ -205,24 +208,26 @@ class evo_mdt{
 				)); exit;
 			break;
 			case 'savelist':
+				$event_id = (int)$_POST['eventid'];
 				if(!empty($_POST['mdt'])){
 					$mdts = array();
 					foreach($_POST['mdt'] as $mdt){
 						$mdts[] = (int)$mdt;
 					}
-					$result = wp_set_object_terms($_POST['eventid'], $mdts, $_POST['tax'] , false);
+
+					$result = wp_set_object_terms($event_id, $mdts, $_POST['tax'] , false);
 				}else{
-					$result = wp_set_object_terms($_POST['eventid'], '', $_POST['tax'] , false);
+					$result = wp_set_object_terms($event_id, '', $_POST['tax'] , false);
 				}
 				echo json_encode(array(
 					'result'=>$result,
-					'content'=>$this->get_mdt_display_list($_POST['eventid'], $_POST['tax']),
+					'content'=>$this->get_mdt_display_list($event_id, $_POST['tax']),
 					'msg'=>__('Successfully Processed!','eventon'),
 					'status'=>'good'
 				)); exit;
 			break;
 			case 'removeterm':
-				$eventid = $_POST['eventid'];
+				$eventid = (int)$_POST['eventid'];
 				$tax = $_POST['tax'];
 				$termid = (int)$_POST['termid'];
 				if(empty($eventid) && empty($tax) && !empty($termid)){					

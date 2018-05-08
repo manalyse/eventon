@@ -7,7 +7,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Uninstaller
- * @version     2.6.6
+ * @version     2.6.8
  */
 if(defined( 'WP_UNINSTALL_PLUGIN' )){
 	$evo_opt = get_option('evcal_options_evcal_1');

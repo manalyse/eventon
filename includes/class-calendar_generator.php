@@ -1488,7 +1488,7 @@ class EVO_generator {
 
 			// all day event check
 				if($_is_allday){
-					$data_array['start']['time'] = 'allday';
+					$data_array['start']['time'] = $evcal_lang_allday;
 					//$data_array['end'] = '';
 				}else{
 					$dv_time = $this->generate_time($date_args);
@@ -2227,6 +2227,7 @@ class EVO_generator {
 
 					$_eventInClasses[] = $_event_date_HTML['class_daylength'];
 					$_eventInClasses[] = 'evcal_list_a';
+					if($EVO_Event->is_all_day()) $_eventInClasses[] = 'allday';
 
 					$_eventInClasses_ = $this->helper->get_eventinclasses(array(
 						'existing_classes'=>$_eventInClasses,
@@ -2657,6 +2658,7 @@ class EVO_generator {
 				}
 				$_filter_array['evloc']= 'event_location';
 				$_filter_array['evorg']= 'event_organizer';
+				$_filter_array['evotag']= 'event_tag';
 			
 			// hook for additional taxonomy filters
 				$_filter_array = apply_filters('eventon_so_filters', $_filter_array);
@@ -2672,27 +2674,67 @@ class EVO_generator {
 				foreach($_filter_array as $ff=>$vv){ // vv = event_type etc.
 
 					// past and future filtering
-					if($ff == 'evpf'){
-						if(in_array($vv, $filtering_options)){
-							$__text_all = evo_lang('Past & Future Events');
-							echo "<div class='eventon_filter evo_hideshow_pastfuture' data-filter_field='{$vv}' data-filter_val='all' data-filter_type='custom' >								
-								<div class='eventon_filter_selection'>
-									<p class='filtering_set_val' data-opts='evs4_in'>{$__text_all}</p>
-									<div class='eventon_filter_dropdown evo_hideshow' style='display:none'>";
+						if($ff == 'evpf'){
+							if(in_array($vv, $filtering_options)){
+								$__text_all = evo_lang('Past & Future Events');
+								echo "<div class='eventon_filter evo_hideshow_pastfuture' data-filter_field='{$vv}' data-filter_val='all' data-filter_type='custom' >								
+									<div class='eventon_filter_selection'>
+										<p class='filtering_set_val' data-opts='evs4_in'>{$__text_all}</p>
+										<div class='eventon_filter_dropdown evo_hideshow' style='display:none'>";
 
-									echo "<p class='evf_hide' data-filter_val='all'>{$__text_all}</p>";
-									echo "<p class='past' data-filter_val='past'>". evo_lang('Only Past Events') ."</p>";
-									echo "<p class='future' data-filter_val='future'>". evo_lang('Only Future Events') ."</p>";
-								echo "</div>
-								</div><div class='clear'></div>
-							</div>";
+										echo "<p class='evf_hide' data-filter_val='all'>{$__text_all}</p>";
+										echo "<p class='past' data-filter_val='past'>". evo_lang('Only Past Events') ."</p>";
+										echo "<p class='future' data-filter_val='future'>". evo_lang('Only Future Events') ."</p>";
+									echo "</div>
+									</div><div class='clear'></div>
+								</div>";
+							}
+							continue;
 						}
-						continue;
-					}
+
+					// Event Tags filtering
+						if($ff == 'evotag'){
+
+							if(in_array($vv, $filtering_options)){
+
+								$tags = get_terms(apply_filters('evo_get_frontend_filter_tags',
+									array( 
+										'taxonomy'=>'post_tag',
+										'hide_empty'=> true,
+										'parent'=>0
+									)
+								));
+
+								$__text_all = evo_lang('Event Tag');
+								echo "<div class='eventon_filter evo_hideshow_evotag' data-filter_field='post_tag' data-filter_val='all' data-filter_type='tax' >								
+									<div class='eventon_sf_field'>
+										<p>{$__text_all}</p>
+									</div>
+									<div class='eventon_filter_selection'>
+										<p class='filtering_set_val' data-opts='evs4_in'>{$__text_all_}</p>
+										<div class='eventon_filter_dropdown evo_hideshow' style='display:none'>";
+
+										echo "<p class='evf_hide' data-filter_val='all'>{$__text_all_}</p>";
+
+										// all event tags
+										foreach($tags as $tag){
+											echo "<p class='past' data-filter_val='{$tag->term_id}'>". $tag->name ."</p>";
+										}
+
+										
+									echo "</div>
+									</div><div class='clear'></div>
+								</div>";
+							}
+							continue;
+						}
 
 					// hook for other arguments
 					$cats = get_terms($vv, apply_filters('evo_get_frontend_filter_tax',
-						array( 'hide_empty'=> false)
+						array( 
+							'hide_empty'=> false,
+							'parent'=>0
+						)
 					));
 			
 					// filtering value filter is set to show
@@ -2785,7 +2827,12 @@ class EVO_generator {
 								echo $inside;
 
 							echo "</div>
-							</div><div class='clear'></div>
+							</div>
+							
+							<div class='evo_filter_selection_children'></div>
+
+
+							<div class='clear'></div>
 						</div>";
 					}else{
 						// if no tax values is passed

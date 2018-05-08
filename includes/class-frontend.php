@@ -73,7 +73,8 @@ class evo_frontend {
 		public function register_scripts() {
 			global $eventon;
 			
-			$evo_opt= $this->evo_options;			
+			$evo_opt= $this->evo_options;	
+
 			
 			// Google gmap API script -- loadded from class-calendar_generator.php	
 			//$apikey = !empty($evo_opt['evo_gmap_api_key'])? '?key='.$evo_opt['evo_gmap_api_key'] :'';

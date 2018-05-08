@@ -293,12 +293,25 @@ class evo_settings_settings{
 				'tab_name'=>__('Icons','eventon'),
 				'icon'=>'diamond',
 				'fields'=> apply_filters('eventon_custom_icons', array(
+					/*
+					array('id'=>'evcal_sh001',
+						'type'=>'subheader',
+						'name'=>__('SVG Icons','eventon')),
+					array('id'=>'evo_custom_code',
+						'type'=>'customcode',
+						'code'=>$this->svg_icons()),
+					*/
+					array('id'=>'evcal_sh001',
+						'type'=>'subheader',
+						'name'=>__('Icon Selections','eventon')),
 					array('id'=>'fs_fonti2','type'=>'fontation','name'=>__('EventCard Icons','eventon'),
 						'variations'=>array(
 							array('id'=>'evcal__ecI', 'type'=>'color', 'default'=>'6B6B6B'),
 							array('id'=>'evcal__ecIz', 'type'=>'font_size', 'default'=>'18px'),
 						)
 					),
+
+					
 					
 					array('id'=>'evcal__fai_001','type'=>'icon','name'=>__('Event Details Icon','eventon'),'default'=>'fa-align-justify'),
 					array('id'=>'evcal__fai_002','type'=>'icon','name'=>__('Event Time Icon','eventon'),'default'=>'fa-clock-o'),
@@ -604,6 +617,44 @@ class evo_settings_settings{
 			<?php return ob_get_clean();
 		}
 
+	// SVG icons
+		function svg_icons(){
+			ob_start();
+
+			$svgs = new EVO_Svgs();
+			?>
+			<div class="evoadmin_svgs">
+				<p><?php _e('SVG Icons for EventON Calendar');?></p>
+				<div class='evoadmin_svgs_container'>
+				<?php
+					$ss = $svgs->get_all();
+
+					if(count($ss)>0){
+						foreach($ss as $slug=>$code){
+							echo "<span data-s='{$slug}'>". $code ."</span>";
+						}
+					}
+				?>
+				</div>
+				
+				<p><span class='evoadmin_add_svg_icons evo_admin_btn btn_triad ajde_popup_trig ' data-popc='evoadmin_lightbox'><?php _e('Add New');?></span>
+				</p>
+
+			</div>
+			<?php
+
+			global $ajde;
+			echo $ajde->wp_admin->lightbox_content(array(
+				'class'=>'evoadmin_lightbox', 
+				'content'=>"<p class='evo_lightbox_loading'></p>",
+				'title'=>__('SVG Icons','eventon'),
+				'width'=>'900'
+				)
+			);
+
+			return ob_get_clean();
+		}
+
 	// html for diagnosis content
 		function content_diag(){
 			ob_start();
@@ -700,6 +751,8 @@ class evo_settings_settings{
 
 			$event_type_options['event_location'] = 'Event Location';
 			$event_type_options['event_organizer'] = 'Event Organizer';
+
+			$event_type_options['event_tag'] = 'Event Tags';
 			
 			return apply_filters('evo_settings_filtering_taxes',$event_type_options);
 		}

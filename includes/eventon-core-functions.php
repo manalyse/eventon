@@ -508,6 +508,14 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	}	
 
 
+// Get the current eventON language value
+// @added 2.6.9
+	function evo_get_current_lang(){
+		if(!empty(EVO()->evo_generator->shortcode_args['lang'])) return EVO()->evo_generator->shortcode_args['lang'];
+		if( !empty(EVO()->lang)) return EVO()->lang;
+		return 'L1';
+	}
+
 
 /*
 	function to return day names and month names in correct language
@@ -535,10 +543,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		$evo_options = (!empty($evo_options))? $evo_options: get_option('evcal_options_evcal_2');
 		
 		// check for language preference
-		$_lang_variation = ( (!empty($lang))? $lang: 
-			( (!empty($shortcode_arg['lang']))? $shortcode_arg['lang']:'L1' ) );
+		$_lang_variation = (!empty($lang))? $lang: evo_get_current_lang();
 		//$_lang_variation = strtoupper($_lang_variation);
-		
+
 		// day name
 		if($type=='day'){
 			
@@ -783,6 +790,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				(!empty($eventon->lang) ? $eventon->lang:
 					( !empty($shortcode_arg['lang'])? $shortcode_arg['lang']: 'L1')
 				);
+
+				//echo $lang;
 			$new_lang_val = (!empty($language_options[$lang][$var]) )?
 				stripslashes($language_options[$lang][$var]): $default;				
 			return $new_lang_val;

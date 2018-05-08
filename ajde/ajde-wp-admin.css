@@ -91,7 +91,7 @@
 		width:470px
 	}
 	.ajde_popup label{cursor: default;pointer-events:none;}	
-	.ajde_popup .ajdeYN_row label{pointer-events:all;}
+	.ajde_popup .ajdeYN_row label, .ajde_popup label.pea{pointer-events:all;}
 	.ajde_popup_text.loading, .ajde_popup_text .evo_lightbox_loading{
 		opacity: 0.4;
 		position: relative;
