@@ -124,6 +124,7 @@ class EVO_Calendar{
 		if($return){
 			$O = array();
 			foreach($return as $i=>$r){
+				$i = ( $index_universal && $i==7)? 0: $i;
 				$O[$i] = substr($r,0,3);
 			}
 			return $O;

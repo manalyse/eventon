@@ -48,6 +48,8 @@ class evo_sinevent{
 				if($split[0] == 'l') $this->L = $split[1];
 			}
 
+			evo_set_global_lang($this->L); // set global language
+
 			//print_r($this->L);
 		}
 	}
@@ -57,7 +59,7 @@ class evo_sinevent{
 			$this->page_header();
 			EVO()->frontend->load_evo_scripts_styles();		
 		}
-		function after_content(){
+		function after_content(){			
 			$this->page_content();
 			$this->comments();
 		}
@@ -82,7 +84,7 @@ class evo_sinevent{
 		function oneevent_wrapper(){
 			$rtl = evo_settings_check_yn($this->evo_opt, 'evo_rtl');
 			?>
-			<div id='evcal_single_event_<?php echo get_the_ID();?>' class='ajde_evcal_calendar eventon_single_event evo_sin_page<?php echo $rtl?'evortl':'';?>' >
+			<div id='evcal_single_event_<?php echo get_the_ID();?>' class='ajde_evcal_calendar eventon_single_event evo_sin_page<?php echo $rtl?'evortl':'';?>' data-l='<?php echo $this->L;?>'>
 			<?php
 		}
 		function oneevent_evodata(){
@@ -124,9 +126,6 @@ class evo_sinevent{
 		function page_content(){
 			global $eventon, $post;
 
-			$cal_args = $eventon->evo_generator->shortcode_args;
-			$lang = !empty($cal_args['lang'])? $cal_args['lang']:'L1';
-
 			//_onlyloggedin
 			$epmv = get_post_meta($post->ID);
 
@@ -145,8 +144,9 @@ class evo_sinevent{
 				eventon_get_template_part( 'content', 'single-event' );	
 
 			}else{
-				echo "<p>".evo_lang('You must login to see this event', $lang)."<br/><a class='button' href=". wp_login_url() ." title='".evo_lang('Login', $lang)."'>".evo_lang('Login', $lang)."</a></p>";
+				echo "<p>".evo_lang('You must login to see this event')."<br/><a class='button' href=". wp_login_url() ." title='".evo_lang('Login')."'>".evo_lang('Login')."</a></p>";
 			}
+	
 		}
 	// sidebar 
 		function sidebar(){

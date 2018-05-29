@@ -146,7 +146,7 @@ function eventon_eventcard_print($array, $EVENT, $evOPT, $evoOPT2){
 						$datetime = new evo_datetime();
 
 						foreach($object->future_intervals as $key=>$interval){
-							$OT .= "<span data-repeat='{$key}' data-l='". $EVENT->get_permalink($key) ."' class='evo_repeat_series_date'>". 
+							$OT .= "<span data-repeat='{$key}' data-l='". $EVENT->get_permalink($key,$EVENT->l) ."' class='evo_repeat_series_date'>". 
 							$datetime->get_formatted_smart_time_piece($interval[0]);
 
 							if( $object->showendtime && !empty($interval[1])){

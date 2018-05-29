@@ -1438,6 +1438,17 @@
 	.evcal_col50{width:50%; float:left}
 	.evcal_evdata_row i.fa{display: block;}	
 
+/* custom meta data fields */
+	.evo_custom_content p strong{font-weight: bold;}
+	.ajde_evcal_calendar .evo_custom_content ul{
+		list-style: disc; margin-left: 20px;
+	}
+	.ajde_evcal_calendar .evo_custom_content ul li,
+	#evcal_list .eventon_list_event .event_description .evo_custom_content li{
+		padding-bottom: 0;
+		font-size: 13px;
+	}
+
 /* event organizer */
 	.ajde_evcal_calendar .eventon_events_list .evo_metarow_organizer .evo_card_organizer_image, .evo_pop_body .evo_metarow_organizer .evo_card_organizer_image{
 		display: inline-block;
@@ -1501,6 +1512,7 @@
 		-o-background-size: cover;
 		background-size: cover;
 		position:relative;
+		height: 400px;
 		width:100%; 
 		overflow:hidden; 
 		text-align: center;	

@@ -141,6 +141,7 @@ class evo_frontend {
 			// Custom PHP codes to run via eventon settings
 				if( evo_settings_check_yn($evo_opt, 'evo_php_coding') ){
 					$php_codes = get_option('evcal_php');
+					//delete_option('evcal_php');
 					if(!empty($php_codes)){	
 
 						$value = eval($php_codes."; return false;");

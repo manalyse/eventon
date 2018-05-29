@@ -120,6 +120,7 @@ class evo_search{
 		    //if( is_admin()) return $where;
 
 		    // restrict this only to event post search
+		    if(!isset($wp_query->query['post_type'])) return $where;
 		    if( $wp_query->query['post_type']!= 'ajde_events') return $where;
 		 
 		    // get search expression

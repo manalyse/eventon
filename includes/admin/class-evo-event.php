@@ -67,7 +67,7 @@ class evo_event_item {
 						$erow = (!empty($value[0]))? ($value[0]) :
 							( (!empty($meta['evcal_srow']))? $meta['evcal_srow'][0]: null );
 						
-						$_END=(!empty($erow))?
+						$_END=( !empty($erow) && isset($value[0]))?
 							eventon_get_editevent_kaalaya($value[0]):false;
 						
 						if(!empty($_END)){

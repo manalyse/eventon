@@ -206,6 +206,7 @@ class evo_admin {
 				wp_enqueue_style( 'eventon_JQ_UI_tp',$eventon_JQ_UI_tp);
 			
 				// other scripts 
+				wp_enqueue_script( 'evo_handlebars',EVO()->assets_path.'handlebars.js',array('jquery'), EVO()->version, true);
 				wp_enqueue_script('select2',AJDE_EVCAL_URL.'/assets/js/select2.min.js');
 				wp_enqueue_script('evcal_backend_post_timepicker',AJDE_EVCAL_URL.'/assets/js/jquery.timepicker.js');
 				wp_enqueue_script('evcal_backend_post',AJDE_EVCAL_URL.'/assets/js/admin/eventon_backend_post.js', array('jquery','jquery-ui-core','jquery-ui-datepicker'), $eventon->version, true );

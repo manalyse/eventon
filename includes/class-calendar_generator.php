@@ -200,13 +200,14 @@ class EVO_generator {
 					// set the value that was calculated
 					$args['evc_open'] = $__evc;
 
-					//echo $__evc;
-
 				// Set hide past value for shortcode hide past event variation
 					$this->_sc_hide_past = (!empty($args['hide_past']) && $args['hide_past']=='yes')? true:false;
 
 				// check for possible filters
 					$this->filters = (!empty($this->cal_filters))? 'true':'false';
+
+				// Evo language @+2.6.10
+					evo_set_global_lang($args['lang']);
 
 				// process WPML
 					if(defined('ICL_LANGUAGE_CODE')){
@@ -1530,9 +1531,11 @@ class EVO_generator {
 				$__shortC_arg = $this->shortcode_args;
 				$is_user_logged_in = is_user_logged_in();
 
+				// Language
+				$cal_lang = evo_get_current_lang();
+
 				// user interavtion for the calendar
 					$calendar_ux_val = !empty($__shortC_arg['ux_val'])? $__shortC_arg['ux_val']: '0';
-					$cal_lang = (!empty($__shortC_arg['lang']) )?$__shortC_arg['lang']: 'L1';
 					$cal_hide_end_time = (!empty($__shortC_arg['hide_end_time']) && $__shortC_arg['hide_end_time']=='yes' )? true: false;
 
 				// schema data
@@ -1575,6 +1578,8 @@ class EVO_generator {
 				// Intials
 					$__repeatInterval = $this->helper->get_ri_for_event($event_);
 					$EVO_Event = new EVO_Event($event_['event_id'], $event_['event_pmv'] , $__repeatInterval);
+
+					$EVO_Event->set_lang( $cal_lang );
 
 					$is_recurring_event = $EVO_Event->is_repeating_event();
 

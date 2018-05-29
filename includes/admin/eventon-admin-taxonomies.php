@@ -249,7 +249,8 @@ class eventon_taxonomies{
 					'description'=>array(
 						'type'=>'textarea',
 						'name'=>__('Organizer Description','eventon'),
-						'var'=>'description'				
+						'var'=>'description',
+						'value'=> ($event_tax_term? $event_tax_term->description:''),				
 					),
 					'evcal_org_contact'=>array(
 						'type'=>'text',

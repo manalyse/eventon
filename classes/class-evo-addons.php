@@ -99,6 +99,8 @@ class evo_addon{
 					|| $pagenow!='admin.php'
 				){
 					
+					if(!class_exists('EVO_Product')) return false;
+				
 					// INITIATE Updater for addon product
 					$ADDON = new EVO_Product($this->addon_data['slug'], true);
 

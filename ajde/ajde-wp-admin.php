@@ -394,6 +394,7 @@ class ajde_wp_admin{
 						if(!empty($terms) && count($terms)>0){
 							foreach($terms as $term){
 								if(!isset($term)) continue;
+								if(empty($term)) continue;
 								$view.= '<em>'.$term->name .' ('.$term->term_id.')</em>';
 							}
 						}

@@ -509,12 +509,23 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 
 // Get the current eventON language value
-// @added 2.6.9
+// @+ 2.6.9 @~ 2.6.10
 	function evo_get_current_lang(){
+		$lang = 'L1';
+
+		global $EVOLANG; 
+		if(!empty($EVOLANG)) return $EVOLANG;
 		if(!empty(EVO()->evo_generator->shortcode_args['lang'])) return EVO()->evo_generator->shortcode_args['lang'];
-		if( !empty(EVO()->lang)) return EVO()->lang;
-		return 'L1';
+		if(!empty(EVO()->lang)) return EVO()->lang;
+
+		return $lang;
 	}
+
+	// @+ 2.6.10
+	function evo_set_global_lang($lang){
+		$GLOBALS['EVOLANG'] = $lang;
+	}
+
 
 
 /*
@@ -728,8 +739,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			if(!empty($lang)){
 				$_lang_variation = $lang;
 			}else{
-				$shortcode_arg = $eventon->evo_generator->shortcode_args;
-				$_lang_variation = (!empty($shortcode_arg['lang']))? $shortcode_arg['lang']:'L1';
+				$_lang_variation = evo_get_current_lang(); // @~2.6.10
 			}
 			
 			$new_lang_val = (!empty($evo_options[$_lang_variation][$field]) )?
@@ -748,19 +758,22 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			return $new_options;
 		}
 
-	// @version 2.2.28
+	// @version 2.2.28 @updated 2.6.10
 	// self sufficient language translattion
 	// faster translation
 		function evo_lang($text, $lang='', $language_options=''){
 			global $eventon;
+
+
 			$language_options = (!empty($language_options))? $language_options: get_option('evcal_options_evcal_2');
-			$shortcode_arg = $eventon->evo_generator->shortcode_args;
+			$shortcode_arg = EVO()->evo_generator->shortcode_args;
 
 			// conditional correct language 
 			$lang = (!empty($lang))? $lang:
-				(!empty($eventon->lang) ? $eventon->lang:
+				(!empty(EVO()->lang) ? EVO()->lang:
 					( !empty($shortcode_arg['lang'])? $shortcode_arg['lang']: 'L1')
 				);
+
 
 			$field_name = evo_lang_texttovar_filter($text);
 

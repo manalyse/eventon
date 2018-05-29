@@ -10,6 +10,8 @@
  */
 class evo_cal_body{
 	private $cal;
+	private $args;
+
 	public $redirect_no_login = false;
 
 	// construct the calendar body 
@@ -328,7 +330,6 @@ class evo_cal_body{
 			global $eventon;
 
 			extract($args);
-
 			// calendar data variables
 			$ux_val = $args['ux_val'];
 			// figure out UX_val - user interaction
@@ -343,31 +344,13 @@ class evo_cal_body{
 					}
 				}
 
-			$_cd='';				
-			$cdata = apply_filters('eventon_cal_jqdata', array(
-				'cyear'		=>$focused_year,
-				'cmonth'	=>$focused_month_num,
-				'runajax'	=>'1',
-				'evc_open'	=>((!empty($args['evc_open']) && $args['evc_open']=='yes')? '1':'0'),
-				'cal_ver'	=>	$eventon->version,
-				'mapscroll'	=> ((!empty($this->cal->evopt1['evcal_gmap_scroll']) && $this->cal->evopt1['evcal_gmap_scroll']=='yes')?'false':'true'),
-				'mapformat'	=> ((!empty($this->cal->evopt1['evcal_gmap_format']))?$this->cal->evopt1['evcal_gmap_format']:'roadmap'),
-				'mapzoom'	=>((!empty($this->cal->evopt1['evcal_gmap_zoomlevel']))?$this->cal->evopt1['evcal_gmap_zoomlevel']:'12'),
-				'mapiconurl'=> ( !empty($this->cal->evopt1['evo_gmap_iconurl'])? $this->cal->evopt1['evo_gmap_iconurl']:''),
-				'ev_cnt'	=>$args['event_count'], // event count
-				'show_limit'=>$args['show_limit'],
-				'tiles'		=>$args['tiles'],
-				'sort_by'	=>$args['sort_by'],
-				'filters_on'=>$this->cal->filters,
-				'range_start'=>$range_start,
-				'range_end'=>$range_end,
-				'send_unix'=>( ($send_unix)?'1':'0'),
-				'ux_val'	=>$__ux_val,
-				'accord'	=>( (!empty($accord) && $accord== 'yes' )? '1': '0'),
-				'rtl'		=> ($this->rtl)?'yes':'no',				
-			), $this->cal->evopt1);
+			$args['ux_val'] = $__ux_val;
 
-			foreach ($cdata as $f=>$v){
+			$this->args = $args; // localize
+	
+			// foreach calendar data	
+			$_cd = '';		
+			foreach ($this->get_cal_data($args) as $f=>$v){
 				$_cd .='data-'.$f.'="'.$v.'" ';
 			}
 
@@ -385,6 +368,35 @@ class evo_cal_body{
 					if($args['layout_changer']=='yes')
 						return "<p class='evo_layout_changer'><i data-type='row' class='fa fa-reorder'></i><i data-type='tile' class='fa fa-th-large'></i></p>";
 				}
+
+		// calendar data set
+			function get_cal_data($args){
+				extract($args);
+
+				return apply_filters('eventon_cal_jqdata', array(
+					'cyear'		=>$focused_year,
+					'cmonth'	=>$focused_month_num,
+					'runajax'	=>'1',
+					'evc_open'	=>((!empty($evc_open) && $evc_open=='yes')? '1':'0'),
+					'cal_ver'	=>	EVO()->version,
+					'mapscroll'	=> ((!empty($this->cal->evopt1['evcal_gmap_scroll']) && $this->cal->evopt1['evcal_gmap_scroll']=='yes')?'false':'true'),
+					'mapformat'	=> ((!empty($this->cal->evopt1['evcal_gmap_format']))?$this->cal->evopt1['evcal_gmap_format']:'roadmap'),
+					'mapzoom'	=>((!empty($this->cal->evopt1['evcal_gmap_zoomlevel']))?$this->cal->evopt1['evcal_gmap_zoomlevel']:'12'),
+					'mapiconurl'=> ( !empty($this->cal->evopt1['evo_gmap_iconurl'])? $this->cal->evopt1['evo_gmap_iconurl']:''),
+					'ev_cnt'	=>$event_count, // event count
+					'show_limit'=>$show_limit,
+					'tiles'		=>$tiles,
+					'sort_by'	=>$sort_by,
+					'filters_on'=>$this->cal->filters,
+					'range_start'=>$range_start,
+					'range_end'	=>$range_end,
+					'send_unix'=>( ($send_unix)?'1':'0'),
+					'ux_val'	=>$ux_val,
+					'accord'	=>( (!empty($accord) && $accord== 'yes' )? '1': '0'),
+					'rtl'		=> ($this->rtl)?'yes':'no',				
+				), $this->cal->evopt1);
+
+			}
 
 	// Independant components of the calendar body
 		public function calendar_shell_header($arg){
@@ -440,6 +452,8 @@ class evo_cal_body{
 			<div class='clear'></div>
 			</div><!-- #evcal_list-->
 			<div class='clear'></div>
+
+			<?php $this->print_evo_cal_data();?>
 	
 			<?php
 
@@ -457,6 +471,22 @@ class evo_cal_body{
 			<?php
 
 			return ob_get_clean();
+		}
+
+	// footer evocal data
+	// @+ 2.6.10
+		function print_evo_cal_data($data = array()){
+			$str = '';
+
+			$data['base'] = $this->get_cal_data($this->args);
+			$data['sc'] = $this->cal->shell->get_cal_shortcode_args();
+
+			foreach( $data as $field=>$val){
+				$str .= ' data-'.$field."='". json_encode($val)."'";
+			}
+			?>
+		 	<div class='evocal_data' <?php echo $str;?>></div>
+			<?php
 		}
 
 	// HTML to show when the user is not logged in and calendar is not set to display then

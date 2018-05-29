@@ -10,6 +10,7 @@ class EVO_Event{
 	public $event_id;
 	public $ID;
 	public $ri = 0;
+	public $l = 'L1';
 	private $edata = array();
 	private $pmv ='';
 
@@ -22,8 +23,11 @@ class EVO_Event{
 		$this->ri = $ri;
 	}
 
+	// event building @+2.6.10
+		function set_lang($lang){ $this->l = $lang;}
+
 	// permalinks
-		// @updated 2.6.7
+		// @~ 2.6.7
 		function get_permalink($ri= '' , $l = 'L1'){
 			$event_link = get_the_permalink($this->event_id);
 
@@ -45,6 +49,11 @@ class EVO_Event{
 			return $event_link;
 		}
 
+	// title
+		function get_title(){
+			if(!empty($this->post_title)) return $this->post_title;
+			return get_the_title($this->ID);
+		}
 	// time and date related
 		function is_current_event( $cutoff='end'){
 			date_default_timezone_set('UTC');	
@@ -70,7 +79,15 @@ class EVO_Event{
 		}
 
 	// DATE TIME
-	// updated 2.6.7
+		// @+ 2.6.10
+		function get_start_time(){
+			return $this->get_event_time();
+		}
+		function get_end_time(){
+			return $this->get_event_time('end');
+		}
+
+		// updated 2.6.7
 		function get_event_time($type='start', $custom_ri=''){
 			if($this->is_repeating_event() ){	
 
@@ -335,6 +352,7 @@ class EVO_Event{
 				$this->content = $results->post_content;
 				$this->excerpt = $results->post_excerpt;
 				$this->post_name = $results->post_name;
+				$this->post_title = $results->post_title; // @+ 2.6.10
 			}
 		}
 		function get_start_unix(){	return (int)$this->get_prop('evcal_srow');	}

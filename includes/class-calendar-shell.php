@@ -141,15 +141,23 @@ class evo_cal_shell {
 
 	/**
 	 * Shortcode arguments as attributed in HTML for the cal header
-	 * @return string
+	 * @return string @~ 2.6.10
 	 */
 		function shortcode_args_for_cal(){
 
-			$arg = $this->cal->shortcode_args;
 			$_cd='';
-			//print_r($arg);
 
-			$cdata = apply_filters('eventon_calhead_shortcode_args', array(
+			foreach ($this->get_cal_shortcode_args() as $f=>$v){
+				$_cd .='data-'.$f.'="'.$v.'" ';
+			}
+
+			return "<div class='cal_arguments' style='display:none' {$_cd}></div>";
+
+		}
+
+		function get_cal_shortcode_args(){
+			$arg = $this->cal->shortcode_args;
+			$output =  apply_filters('eventon_calhead_shortcode_args', array(
 				'hide_past'=>$arg['hide_past'],
 				'show_et_ft_img'=>$arg['show_et_ft_img'],
 				'event_order'=>$arg['event_order'],
@@ -175,12 +183,9 @@ class evo_cal_shell {
 				'show_repeats'	=>(!empty($arg['show_repeats'])?$arg['show_repeats']:'no'),
 			), $arg);
 
-			foreach ($cdata as $f=>$v){
-				$_cd .='data-'.$f.'="'.$v.'" ';
-			}
+			//print_r($output);
 
-			return "<div class='cal_arguments' style='display:none' {$_cd}></div>";
-
+			return $output;
 		}
 
 

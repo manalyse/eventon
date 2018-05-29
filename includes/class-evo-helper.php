@@ -81,7 +81,7 @@ class evo_helper{
 				'attachments'=> array(),
 				'return_details'=>false
 			);
-			$args = array_merge($defaults, $args);
+			$args = is_array($args)? array_merge($defaults, $args): $defaults;
 
 			if($args['html']=='yes'){
 				add_filter( 'wp_mail_content_type',array($this,'set_html_content_type'));

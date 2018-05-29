@@ -731,7 +731,7 @@ class evo_event_metaboxes{
 										foreach(array(
 											'evo_hide_endtime'=>array(
 												'n'=> __('Hide End Time from calendar', 'eventon'),
-												'a'=> 'evo_span_hidden_end'
+												'a'=> '_evo_span_hidden_end'
 											),
 											'evo_span_hidden_end'=>array(
 												'n'=> __('Span the event until hidden end time','eventon'),
@@ -1347,11 +1347,13 @@ class evo_event_metaboxes{
 
 			// if edit
 			if(!$is_new){
+
 				$event_tax_term = wp_get_post_terms($_POST['eventid'], $_POST['tax']);
 				if ( $event_tax_term && ! is_wp_error( $event_tax_term ) ){	
 					$event_tax_term = $event_tax_term[0];
 				}
 				$termMeta = evo_get_term_meta($_POST['tax'],$_POST['termid'], '', true);
+				
 			}
 
 			ob_start();

@@ -99,11 +99,14 @@ class EVO_Shortcodes {
 			if($eventon->frontend->is_member_only($args) ){	
 				EVO()->frontend->load_evo_scripts_styles();		
 				ob_start();				
-				echo $eventon->evo_generator->eventon_generate_calendar($args);			
+				echo EVO()->evo_generator->eventon_generate_calendar($args);	
+				
 				return ob_get_clean();
 			}else{
-				echo $eventon->frontend->nonMemberCalendar();
+				return EVO()->frontend->nonMemberCalendar();
 			}
+
+
 		}
 
 	// single events

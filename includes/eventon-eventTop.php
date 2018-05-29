@@ -2,7 +2,7 @@
 /**
  * Event Top section
  * process content as html output
- * @since  eventon 2.4.8
+ * @since  eventon 2.6.10
  * @version  0.1
  */
 function eventon_get_eventtop_print($array, $EVENT, $evOPT, $evOPT2){
@@ -96,7 +96,7 @@ function eventon_get_eventtop_print($array, $EVENT, $evOPT, $evOPT2){
 				
 				// above title inserts
 				$OT.= "<span class='evo_above_title'>";
-					$OT .= apply_filters("eventon_eventtop_abovetitle", '', $object);
+					$OT .= apply_filters("eventon_eventtop_abovetitle", '', $object, $EVENT);
 					
 					if($object->cancel){
 						$OT.= "<span class='evo_event_headers canceled' title='".(!empty($object->cancel_reason)? $object->cancel_reason: null)."'>".( eventon_get_custom_language( $evOPT2,'evcal_evcard_evcancel', 'Event Cancelled')  )."</span>";
